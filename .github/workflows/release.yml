@@ -8,7 +8,7 @@ on:
 jobs:
   checks:
     runs-on: ubuntu-latest
-    # if: startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/v')
     steps:
       - name: Check out source code
         uses: actions/checkout@v4
@@ -26,7 +26,6 @@ jobs:
           set -x
           cd test-commons
           rm -rf dist/*
-          VERSION="${GITHUB_REF##*/}"
           npm run rollup
       - name: Create release with assets
         env:
@@ -40,4 +39,5 @@ jobs:
           && sudo apt update \
           && sudo apt install gh -y
           cd test-commons
+          VERSION="${GITHUB_REF##*/}"
           gh release create "${VERSION}" ./dist/* --title "${VERSION}" --target "${GITHUB_SHA}" --generate-notes
