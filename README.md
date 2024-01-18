@@ -9,7 +9,7 @@ The [tests](./tests/) folder is our testing project. It includes all tests, test
 - Bundle up test modules located in `node_modules`.
 - Polyfill ES+ features that k6 doesn't natively support.
 
-### Internal library
+### Shared library
 
 The [test-commons](./test-commons) folder contains a library that's imported in the test project. It's [`rollup.config.js`](./test-commons/rollup.config.js) bundles the library as ES modules.
 
