@@ -1,0 +1,22 @@
+{
+  "name": "k6-tests",
+  "version": "1.0.0",
+  "description": "Template project using rollup to bundle k6 tests",
+  "type": "module",
+  "engines": {
+    "node": ">=18 <19"
+  },
+  "devDependencies": {
+    "@rollup/plugin-babel": "^6.0.4",
+    "@babel/plugin-transform-optional-chaining": "^7.23.4",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "glob": "^10.3.10",
+    "rollup": "^4.9.5"
+  },
+  "scripts": {
+    "rollup": "rollup --config"
+  },
+  "dependencies": {
+    "test-commons": "file:../test-commons"
+  }
+}
