@@ -1,4 +1,14 @@
 {
   "name": "test-commons",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=18 <19"
+  },
+  "devDependencies": {
+    "rollup": "^4.9.5"
+  },
+  "scripts": {
+    "rollup": "rollup --config"
+  }
 }

@@ -1,15 +1,31 @@
-In this example, we are using [Rollup](https://rollupjs.org/) to bundle k6 tests for demo purposes.
+In this example, we are using [Rollup](https://rollupjs.org/) to bundle k6 tests and an internal library for demo purposes.
 
-Check out the [`rollup.config.js`](./tests/rollup.config.js) file. It is set up to:
+## Content
+
+### Test project
+
+The [tests](./tests/) folder is our testing project. It includes all tests, test dependencies, and project dependencies like `Rollup`. Its [`rollup.config.js`](./tests/rollup.config.js) is set up to:
 
 - Bundle up test modules located in `node_modules`.
 - Polyfill ES+ features that k6 doesn't natively support.
 
-## Content
+### Internal library
 
-The [tests](./tests/) folder is our testing project. It includes all tests, test dependencies, and project dependencies like `Rollup`. 
+The [test-commons](./test-commons) folder contains a library that's imported in the test project. It's [`rollup.config.js`](./test-commons/rollup.config.js) bundles the library as ES modules.
 
-The [test-commons](./test-commons) folder is a library imported in the testing project. It is distributed as a npm-based project and configured as a dependency in [tests/package.json](./tests/package.json).
+This project includes a [GH action](./github/workflows/release.yml) that bundles and releases the library as assets in the [project release](https://github.com/grafana/k6-rollup-example/releases). Then, you can import this version from the k6 tests as remote modules, just like in [import-remote-test.js](./tests/remotes/import-remote-test.js).
+
+```js
+import { WorkloadConfig, sayHello } from 'https://github.com/grafana/k6-rollup-example/releases/download/v0.0.1/index.js';
+```
+
+Alternatively, `test-commons` could be distributed as a npm-based project and configured as a dependency like in [tests/package.json](./tests/package.json). Then, you can import it as in [import-npm-test.js](./tests/samples/import-npm-test.js).
+
+```js
+import { WorkloadConfig, sayHello } from 'test-commons';
+```
+
+
 
 ## Installation
 
@@ -22,7 +38,9 @@ npm install
 
 ## Usage
 
-Attempting to run the tests in [samples](./tests/samples/) will fail because:
+To confirm the usage of remote modules, visit [import-remote-test.js](./tests/remotes/import-remote-test.js) and run the test.
+
+However, attempting to run the tests in [samples](./tests/samples/) will fail because:
 
 -  k6 does not know how to resolve the `test-commons` module.
 -  k6 does not recognize the optional chaining ( `?.` ) operator. 
@@ -42,7 +60,7 @@ npm run rollup -- --input samples/es-plus-test.js
 You should see rollup bundling tests into the `dist` folder, like this:
 
 ```bash
-samples/import-common-test.js → dist...
+samples/import-npm-test.js → dist...
 created dist in 76ms
 
 samples/es-plus-test.js → dist...
