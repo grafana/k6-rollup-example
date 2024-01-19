@@ -43,9 +43,9 @@ To confirm the usage of remote modules, visit [import-remote-test.js](./tests/re
 However, attempting to run the tests in [samples](./tests/samples/) will fail because:
 
 -  k6 does not know how to resolve the `test-commons` module.
--  k6 does not recognize the optional chaining ( `?.` ) operator. 
+-  k6 does not recognize some ES+ features like the optional chaining ( `?.` ) operator. 
 
-To address this, we'll use `Rollup` to bundle the dependency and polyfill the `?.` operator. 
+To address this, we'll use `Rollup` to bundle the dependency and polyfill ES+ features. 
 
 ```bash
 cd tests
@@ -54,7 +54,7 @@ cd tests
 npm run rollup
 
 # Or just one test
-npm run rollup -- --input samples/es-plus-test.js
+npm run rollup -- --input samples/babel/optional-chaining-test.js
 ```
 
 You should see rollup bundling tests into the `dist` folder, like this:
@@ -63,13 +63,11 @@ You should see rollup bundling tests into the `dist` folder, like this:
 samples/import-npm-test.js → dist...
 created dist in 76ms
 
-samples/es-plus-test.js → dist...
-created dist in 11ms
+...
 ```
 
 Now we're all set! Check out the `dist` folder. We can now run the tests as usual:
 
 ```bash
-k6 run dist/es-plus-tests.js
+k6 run dist/optional-chaining-test.js
 ```
-

@@ -11,8 +11,15 @@ function getConfig(file) {
     },
     plugins: [
       nodeResolve(), // resolve node_modules in k6 script
-      babel({ // transpile non-supported ES features
-        plugins: ['@babel/plugin-transform-optional-chaining'],
+      babel({
+        // transpile non-supported ES features: https://github.com/grafana/k6/issues/3265
+        plugins: [
+          '@babel/plugin-transform-optional-chaining',
+          '@babel/plugin-transform-object-rest-spread',
+          '@babel/plugin-transform-private-property-in-object',
+          '@babel/plugin-transform-private-methods',
+          '@babel/plugin-transform-class-properties',
+        ],
         babelHelpers: 'bundled',
       }),
     ],
@@ -22,11 +29,11 @@ function getConfig(file) {
 
 export default (commandLineArgs) => {
   if (commandLineArgs.input) {
-    //npm run rollup -- --input samples/es-plus-test.js
+    //npm run rollup -- --input samples/import-npm-test.js
     // or
-    //rollup --config --input samples/es-plus-test.js
+    //rollup --config --input samples/import-npm-test.js
     return getConfig(commandLineArgs.input);
   }
-  const tests = glob.sync('./samples/*test.js');
+  const tests = glob.sync('./samples/**/*test.js');
   return tests.map(getConfig);
 };

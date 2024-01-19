@@ -1,5 +1,5 @@
 import http from 'k6/http';
-import { WorkloadConfig, sayHello } from 'https://github.com/grafana/k6-rollup-example/releases/download/v0.0.1/index.js';
+import { WorkloadConfig, sayHello } from 'https://github.com/grafana/k6-rollup-example/releases/download/v0.0.2/index.js';
 
 export const options = {
   stages: WorkloadConfig.smoke
