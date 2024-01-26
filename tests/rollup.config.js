@@ -10,7 +10,8 @@ function getConfig(file) {
       format: 'es',
     },
     plugins: [
-      nodeResolve(), // resolve node_modules in k6 script
+      // resolve node_modules in k6 script
+      nodeResolve({ resolveOnly: ['test-commons'] }),
       babel({
         // transpile non-supported ES features: https://github.com/grafana/k6/issues/3265
         plugins: [
