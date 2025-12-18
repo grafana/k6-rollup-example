@@ -4,7 +4,7 @@
   "description": "Template project using rollup to bundle k6 tests",
   "type": "module",
   "engines": {
-    "node": ">=18 <19"
+    "node": ">=18 <25"
   },
   "devDependencies": {
     "@babel/plugin-transform-class-properties": "^7.23.3",
