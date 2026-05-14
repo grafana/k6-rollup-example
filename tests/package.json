@@ -15,7 +15,7 @@
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "glob": "^10.3.10",
-    "rollup": "^4.9.5"
+    "rollup": "^4.59.0"
   },
   "scripts": {
     "rollup": "rollup --config"
